@@ -3,4 +3,4 @@ install:
 @test:
 	rake test
 lint:
-	rubocop
+	rake rubocop

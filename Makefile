@@ -3,4 +3,6 @@ install:
 @test:
 	rake test
 lint:
-	rake rubocop
+	bundle exec rubocop
+lint-fix:
+	bundle exec rubocop -A

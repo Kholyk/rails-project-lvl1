@@ -1,7 +1,7 @@
 [![Ruby Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/Kholyk/rails-project-lvl1)
 
-![CI](https://github.com/Kholyk/rails-project-lvl1/actions/workflows/main.yml/badge.svg)
-![Hexlet Check](https://github.com/Kholyk/rails-project-lvl1/actions/workflows/hexlet-check.yml/badge.svg)
+[![CI](https://github.com/Kholyk/rails-project-lvl1/actions/workflows/main.yml/badge.svg)](https://github.com/Kholyk/rails-project-lvl1/actions/workflows/main.yml)
+[![hexlet-check](https://github.com/Kholyk/rails-project-lvl1/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Kholyk/rails-project-lvl1/actions/workflows/hexlet-check.yml)
 
 
 # HexletCode

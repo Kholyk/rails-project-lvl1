@@ -17,22 +17,22 @@ class HexletCodeTest < Minitest::Test
   end
 
   def test_paired_tag_builder
-    assert PairedTag.build('label', for: 'email') { 'Email' } == '<label for="email">Email</label>'
-    assert PairedTag.build('div') == '<div></div>'
+    assert PairedTag.build("label", for: "email") { "Email" } == '<label for="email">Email</label>'
+    assert PairedTag.build("div") == "<div></div>"
   end
 
   def test_nested_tags
-    nested = PairedTag.build('label', for: 'email') { PairedTag.build('div') {SingleTag.build("br")} }
+    nested = PairedTag.build("label", for: "email") { PairedTag.build("div") { SingleTag.build("br") } }
     assert nested == '<label for="email"><div><br></div></label>'
   end
 
   def test_tag_common
-    assert Tag.build('br') == "<br>"
-    assert Tag.build('label', for: 'email') { 'Email' } == '<label for="email">Email</label>'
+    assert Tag.build("br") == "<br>"
+    assert Tag.build("label", for: "email") { "Email" } == '<label for="email">Email</label>'
   end
 
   def test_nested_common_tags
-    nested = Tag.build('label', for: 'email') { Tag.build('div') {Tag.build("br")} }
+    nested = Tag.build("label", for: "email") { Tag.build("div") { Tag.build("br") } }
     assert nested == '<label for="email"><div><br></div></label>'
   end
 end

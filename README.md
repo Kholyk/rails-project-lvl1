@@ -26,8 +26,34 @@ Or install it yourself as:
     $ gem install hexlet_code
 
 ## Usage
+Generate form using Structure builder
 
-TODO: Write usage instructions here
+```Ruby
+# Define structure for User model
+NewUser = Struct.new(:name, :job, :gender, keyword_init: true)
+
+# Create specific user according to structure
+new_user = NewUser.new name: "rob", job: "hexlet", gender: "m"
+
+# Gnerate form
+tag_with_url = HexletCode.form_for new_user do |f|
+  f.input :name
+  f.input :job, as: :text
+  f.submit
+end
+
+```
+As a result you'll be able to get a complete HTML form
+
+```html
+<form action="#" method="post">
+  <label for="name">Name</label>
+  <input name="name" type="text" value="rob">
+  <label for="job">Job</label>
+  <textarea cols="20" rows="40" name="job">hexlet</textarea>
+  <input name="commit" type="submit" value="Save">
+</form>
+```
 
 ## Development
 

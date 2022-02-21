@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
-require_relative "./tag/tag"
-
 # input fields generators
 class Inputs
+  autoload(:Label, "hexlet_code/inputs/label")
+  autoload(:Textarea, "hexlet_code/inputs/textarea")
+  autoload(:Textfield, "hexlet_code/inputs/textfield")
+  autoload(:Submit, "hexlet_code/inputs/submit")
+
   class Error < StandardError; end
 
   attr_accessor :input_fields, :struct
@@ -20,32 +23,17 @@ class Inputs
   def input(field_name, options = {})
     raise "'input': undefined method '#{field_name}' for #{struct}" unless struct.to_h.key? field_name
 
-    input_fields.push label(field_name) unless options[:blind]
+    field_value = struct[field_name]
+    label_free = options[:blind]
+    input_fields.push Label.public_send :create, field_name unless label_free
     if options[:as] == :text
-      input_fields.push textarea_field(field_name, struct[field_name])
+      input_fields.push Textarea.public_send :create, field_name, field_value
     else
-      input_fields.push text_field(field_name, struct[field_name])
+      input_fields.push Textfield.public_send :create, field_name, field_value
     end
   end
 
   def submit(name = "Save")
-    input_fields.push Tag.public_send :build, "input", name: "commit", type: "submit", value: name
-  end
-
-  private
-
-  def textarea_field(name, value = nil, attributes = { cols: "20", rows: "40" })
-    attributes[:name] = name
-    block = proc { value }
-    Tag.public_send :build, "textarea", attributes, &block
-  end
-
-  def text_field(name, value = nil)
-    Tag.public_send :build, "input", name: name, type: "text", value: value
-  end
-
-  def label(name)
-    block = proc { name.capitalize }
-    Tag.public_send :build, "label", for: name, &block
+    input_fields.push Submit.public_send :create, name
   end
 end

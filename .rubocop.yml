@@ -1,15 +1,12 @@
+
+---
+
+require:
+  - rubocop-performance
+
 AllCops:
-  TargetRubyVersion: 2.6
+  NewCops: enable
+  TargetRubyVersion: 3.0
 
-Style/StringLiterals:
-  Enabled: true
-  EnforcedStyle: double_quotes
-
-Style/StringLiteralsInInterpolation:
-  Enabled: true
-  EnforcedStyle: double_quotes
-
-Layout/LineLength:
-  Max: 120
 Metrics/AbcSize:
-  Max: 25
+  Enabled: false

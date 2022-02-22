@@ -9,8 +9,8 @@ module Tag
 
   def self.build(name, attributes = {}, &block)
     result = ["<#{name}#{attributes_to_string(attributes)}>"]
-    result.push yield block if block_given?
-    result.push "</#{name}>" if block_given?
-    result.join ''
+    result.push yield block if block
+    result.push "</#{name}>" if block
+    result.join
   end
 end

@@ -7,5 +7,5 @@ require 'minitest/autorun'
 
 def get_fixture_content(fixture)
   file = File.new("test/fixtures/#{fixture}.html")
-  File.open(file).read
+  File.read(file)
 end

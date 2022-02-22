@@ -4,8 +4,8 @@
 class Inputs
   class Error < StandardError; end
 
-  autoload(:Submit, "hexlet_code/input_types/submit")
-  autoload(:Input, "hexlet_code/input_types/input")
+  autoload(:Submit, 'hexlet_code/input_types/submit')
+  autoload(:Input, 'hexlet_code/input_types/input')
   include Submit
   include Input
 

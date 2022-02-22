@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require "set"
-require_relative "./tag_prototype"
+require 'set'
+require_relative './tag_prototype'
 
 # Generates html entity
 module Tag
@@ -11,6 +11,6 @@ module Tag
     result = ["<#{name}#{attributes_to_string(attributes)}>"]
     result.push yield block if block_given?
     result.push "</#{name}>" if block_given?
-    result.join ""
+    result.join ''
   end
 end

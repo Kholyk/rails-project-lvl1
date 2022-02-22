@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require_relative "hexlet_code/version"
+require_relative 'hexlet_code/version'
 
 # Form builder
 module HexletCode
-  autoload(:Inputs, "hexlet_code/inputs")
-  autoload(:Tag, "hexlet_code/tag/tag")
+  autoload(:Inputs, 'hexlet_code/inputs')
+  autoload(:Tag, 'hexlet_code/tag/tag')
 
   class Error < StandardError; end
 
@@ -14,6 +14,6 @@ module HexletCode
 
     yield input_fields if block_given?
 
-    Tag.build("form", action: attr[:url] ||= "#", method: "post") { input_fields.body }
+    Tag.build('form', action: attr[:url] ||= '#', method: 'post') { input_fields.body }
   end
 end

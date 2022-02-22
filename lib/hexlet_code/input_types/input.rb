@@ -9,12 +9,13 @@ module Input
     raise "'input': undefined method '#{field_name}' for #{struct}" unless struct.to_h.key? field_name
 
     field_value = struct[field_name]
-    label_free = options[:blind]
-    input_fields.push Label.public_send :create, field_name unless label_free
+
+    input_fields.push Label.public_send :create, field_name
+
     if options[:as] == :text
-      input_fields.push Textarea.public_send :create, field_name, field_value
+      input_fields.push Textarea.public_send :create, field_name, field_value, options
     else
-      input_fields.push Textfield.public_send :create, field_name, field_value
+      input_fields.push Textfield.public_send :create, field_name, field_value, options
     end
   end
 end

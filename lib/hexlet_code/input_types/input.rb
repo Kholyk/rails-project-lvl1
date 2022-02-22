@@ -6,7 +6,7 @@ module Input
   autoload(:Textarea, 'hexlet_code/inputs/textarea')
   autoload(:Textfield, 'hexlet_code/inputs/textfield')
   def input(field_name, options = {})
-    raise NoMethodError, "'input': undefined method '#{field_name}' for #{struct}" unless struct.to_h.key? field_name
+    check field_name
 
     field_value = struct[field_name]
 
@@ -17,5 +17,11 @@ module Input
     else
       input_fields.push Textfield.public_send :create, field_name, field_value, options
     end
+  end
+
+  private
+
+  def check(name)
+    raise NoMethodError, "'input': undefined method '#{name}' for #{struct}" unless struct.to_h.key? name
   end
 end

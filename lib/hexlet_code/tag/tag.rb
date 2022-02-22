@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require_relative "./single_tag"
-require_relative "./paired_tag"
 require "set"
+require_relative "./tag_prototype"
 
 # Generates html entity
 module Tag
+  extend TagPrototype
+
   def self.build(name, attributes = {}, &block)
-    single_tags = %w[img br hr input].to_set
-
-    return SingleTag.build(name, attributes) if single_tags.include? name
-
-    PairedTag.build(name, attributes, &block)
+    result = ["<#{name}#{attributes_to_string(attributes)}>"]
+    result.push yield block if block_given?
+    result.push "</#{name}>" if block_given?
+    result.join ""
   end
 end

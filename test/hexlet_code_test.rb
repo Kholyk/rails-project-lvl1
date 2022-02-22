@@ -88,8 +88,14 @@ class HexletCodeTest < Minitest::Test
       f.submit
     end
 
-    # pp tag_with_url
-
     assert tag_with_url == get_fixture_content("submit_labeled_form")
+  end
+
+  def test_create_empty_form_with_submit
+    new_user = NewUser.new name: "rob", job: "hexlet", gender: "m"
+
+    tag_with_url = HexletCode.form_for new_user, &:submit
+
+    assert tag_with_url == get_fixture_content("submit_empty_form")
   end
 end

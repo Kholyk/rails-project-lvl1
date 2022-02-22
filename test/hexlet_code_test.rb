@@ -11,48 +11,6 @@ class HexletCodeTest < Minitest::Test
 
   NewUser = Struct.new(:name, :job, :gender, keyword_init: true)
 
-  # def test_that_it_has_a_version_number
-  #   refute_nil ::HexletCode::VERSION
-  # end
-
-  # def test_create_form_tag
-  #   # Создаем конкретно пользователя и заполняем имя
-  #   user = User.new name: "rob"
-  #
-  #   tag_with_url = HexletCode.form_for user, url: "/users" do |f|
-  #   end
-  #
-  #   assert tag_with_url == '<form action="/users" method="post"></form>'
-  #
-  #   tag_without_url = HexletCode.form_for user do |f|
-  #   end
-  #
-  #   assert tag_without_url == '<form action="#" method="post"></form>'
-  # end
-  #
-  # def test_create_form_tag_with_input
-  #   new_user = NewUser.new name: "rob", job: "hexlet", gender: "m"
-  #
-  #   tag_with_url = HexletCode.form_for new_user do |f|
-  #     f.input :name, blind: true
-  #     f.input :job, as: :text, blind: true
-  #   end
-  #
-  #   assert tag_with_url == get_fixture_content("simple_form")
-  # end
-  #
-  # def test_create_form_with_submit
-  #   new_user = NewUser.new name: "rob", job: "hexlet", gender: "m"
-  #
-  #   tag_with_url = HexletCode.form_for new_user do |f|
-  #     f.input :name, blind: true
-  #     f.input :job, as: :text, blind: true
-  #     f.submit
-  #   end
-  #
-  #   assert tag_with_url == get_fixture_content("submit_form")
-  # end
-  #
   def test_create_labeled_form_with_submit
     new_user = NewUser.new name: "rob", job: "hexlet", gender: "m"
 
@@ -103,5 +61,15 @@ class HexletCodeTest < Minitest::Test
     end
 
     assert tag_with_url == get_fixture_content("form_textarea_with_custom_attributes")
+  end
+
+  def test_raise_no_method_error
+    assert_raises NoMethodError do
+      new_user = NewUser.new name: "rob", job: "hexlet", gender: "m"
+
+      tag_with_url = HexletCode.form_for new_user do |f|
+        f.input :wrong, as: :text, cols: 30, rows: 50
+      end
+    end
   end
 end

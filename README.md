@@ -1,3 +1,5 @@
+[![hexlet-check](https://github.com/Kholyk/rails-project-lvl1/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Kholyk/rails-project-lvl1/actions/workflows/hexlet-check.yml)
+
 # HexletCode
 
 TODO: Delete this and the text below, and describe your gem

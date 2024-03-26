@@ -35,16 +35,13 @@ class TestHexletCode < Minitest::Test
   end
 
   def test_root_form_tag_generates_properly
-    form1 = HexletCode.form_for @user_model do |f|
-    end
+    form1 = HexletCode.form_for @user_model
     assert_equal '<form action="#" method="post"></form>', form1
 
-    form2 = HexletCode.form_for @user_model, url: '/users' do |f|
-    end
+    form2 = HexletCode.form_for @user_model, url: '/users'
     assert_equal '<form action="/users" method="post"></form>', form2
 
-    form3 = HexletCode.form_for @user_model, url: '/users', class: 'form-control' do |f|
-    end
+    form3 = HexletCode.form_for @user_model, url: '/users', class: 'form-control'
     assert_equal '<form action="/users" method="post" class="form-control"></form>', form3
   end
   #

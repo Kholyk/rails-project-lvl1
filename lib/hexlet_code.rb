@@ -3,8 +3,6 @@
 require_relative "hexlet_code/version"
 require_relative "hexlet_code/form"
 
-
-
 module HexletCode
   autoload :Tag, "hexlet_code/tag"
   autoload :Input, "hexlet_code/input"

@@ -6,6 +6,7 @@ module HexletCode
       @value = value
       @options = options
     end
+
     def render
       attributes = { type: 'submit', value: @value }
       Tag.build('input', attributes.merge(@options))

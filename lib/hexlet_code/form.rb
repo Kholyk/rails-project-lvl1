@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'active_support'
 require "active_support/core_ext"
 
@@ -28,11 +29,11 @@ module HexletCode
   def self.input(field_name, options = {})
     begin
       value = @model.public_send field_name
-    rescue
+    rescue NoMethodError
       raise NoMethodError, "undefined method `#{field_name}` for #{@model}"
     end
 
-    field_type_class = (options.include?(:as)) ? 'Textarea' : 'Text'
+    field_type_class = options.include?(:as) ? 'Textarea' : 'Text'
     fields << "HexletCode::#{field_type_class}Field".constantize.new(field_name, value, options)
   end
 
@@ -41,9 +42,9 @@ module HexletCode
   end
 
   def self.render
-    method = form_options.fetch(:method, 'post')
-    action = form_options.fetch(:url, '#')
-    attributes = { action: action, method: method }.merge(form_options.except(:url))
+    form_method = form_options.fetch(:method, 'post')
+    on_submit = form_options.fetch(:url, '#')
+    attributes = { action: on_submit, method: form_method }.merge(form_options.except(:url))
 
     children = fields.reduce [] do |acc, field|
       acc << field.render

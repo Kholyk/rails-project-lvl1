@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "test_helper"
+require 'test_helper'
 require_relative '../lib/hexlet_code'
 
 class TestHexletCode < Minitest::Test

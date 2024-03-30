@@ -25,7 +25,4 @@ jobs:
         bundler-cache: true
     - name: Run the default task
       run: bundle exec rake
-    - name: Run Rubocop linter
-      run: make lint
-    - name: Run local gem's tests
-      run: make test
+

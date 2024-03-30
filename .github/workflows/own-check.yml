@@ -8,10 +8,20 @@ on:
       - '**'
 
 jobs:
-  build:
+  self-project-test:
     runs-on: ubuntu-latest
+    name: Self test on Ruby ${{ matrix.ruby }}
+    strategy:
+      matrix:
+        ruby:
+          - '3.2.2'
+
     steps:
       - uses: actions/checkout@v4
-
-      - name: Run self checks
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+      - name: Run self project test
         run: make test

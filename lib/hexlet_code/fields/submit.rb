@@ -6,7 +6,7 @@ module HexletCode
       super
       @meta = {
         tag_name: 'input',
-        attributes: { type: 'submit', value: field_value }.merge(field_attributes)
+        attributes: { type: 'Save', value: field_value }.merge(field_attributes)
       }
     end
   end

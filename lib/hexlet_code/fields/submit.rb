@@ -2,11 +2,12 @@
 
 module HexletCode
   class Submit < Input
-    def initialize(field_value = 'Submit', field_attributes = {})
+    def initialize(field_value = 'Save', field_attributes = {})
       super
       @meta = {
         tag_name: 'input',
-        attributes: { type: 'Save', value: field_value }.merge(field_attributes)
+        value: field_value,
+        attributes: { type: 'submit', value: field_value }.merge(field_attributes)
       }
     end
   end

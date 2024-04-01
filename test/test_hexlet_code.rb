@@ -90,7 +90,7 @@ class TestHexletCode < Minitest::Test
 
   def test_labeled_form_with_extra_attributes
     labeled2 = HexletCode.form_for @user_model1, url: 'user/update', method: 'patch' do |f|
-      f.input :name
+      f.input :name, class: 'user-input'
       f.input :job
       f.input :description, as: :text, class: 'form-control'
       f.submit 'Wow'

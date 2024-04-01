@@ -16,7 +16,7 @@ module HexletCode
         tag_name, name, value, attributes = field.values_at(:tag_name, :name, :value, :attributes)
 
         attributes.value?('submit') ||
-          acc << Tag.build('label', { for: name }) { name.to_s.capitalize }
+          acc << (Tag.build('label', { for: name }) { name.to_s.capitalize })
 
         acc << Tag.build(tag_name, attributes) { value }
       end.join

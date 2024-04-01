@@ -30,7 +30,7 @@ class TestHexletCode < Minitest::Test
     assert_equal '<label for="email">Email</label>', HexletCode::Tag.build('label', for: 'email') { 'Email' }
     assert_equal '<div></div>', HexletCode::Tag.build('div')
   end
-  #
+
   def test_struct_works_properly
     assert_equal @user_model.name, 'rob'
   end

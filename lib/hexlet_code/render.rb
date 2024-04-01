@@ -15,8 +15,7 @@ module HexletCode
       children = @fields.reduce [] do |acc, field|
         tag_name, name, value, attributes = field.values_at(:tag_name, :name, :value, :attributes)
 
-        attributes.value?('submit') ||
-          (acc << Tag.build('label', { for: name }) { name.to_s.capitalize })
+        (acc << Tag.build('label', { for: name }) { name.to_s.capitalize }) unless attributes.value?('submit')
 
         acc << Tag.build(tag_name, attributes) { value }
       end.join

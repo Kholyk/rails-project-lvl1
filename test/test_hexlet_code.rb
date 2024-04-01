@@ -31,9 +31,9 @@ class TestHexletCode < Minitest::Test
     assert_equal '<div></div>', HexletCode::Tag.build('div')
   end
   #
-  # def test_struct_works_properly
-  #   assert_equal @user_model.name, 'rob'
-  # end
+  def test_struct_works_properly
+    assert_equal @user_model.name, 'rob'
+  end
 
   def test_root_form_tag_generates_properly
     form1 = HexletCode.form_for @user_model

@@ -2,14 +2,11 @@
 
 module HexletCode
   module Tag
-    def self.build(name, attributes = {}, &block)
-      tag = []
-      tag << "<#{name}#{render_attributes(attributes)}>"
-      return tag.join if tag_single?(name)
+    def self.build(name, attributes = {})
+      tag_head = "<#{name}#{render_attributes(attributes)}>"
+      return tag_head if tag_single?(name)
 
-      tag << yield if block
-      tag << "</#{name}>"
-      tag.join
+      "#{tag_head}#{yield if block_given?}</#{name}>"
     end
 
     def self.tag_single?(tag_name)

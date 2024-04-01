@@ -2,12 +2,12 @@
 
 require_relative 'hexlet_code/version'
 require_relative 'hexlet_code/form'
+require_relative 'hexlet_code/render'
 
 module HexletCode
   autoload :Tag, 'hexlet_code/tag'
-  autoload :Input, 'hexlet_code/input'
-  autoload :TextField, 'hexlet_code/fields/text_field'
-  autoload :TextareaField, 'hexlet_code/fields/textarea_field'
-  autoload :SubmitField, 'hexlet_code/fields/submit_field'
-  class Error < StandardError; end
+  autoload :Field, 'hexlet_code/field'
+  autoload :Input, 'hexlet_code/fields/input'
+  autoload :Text, 'hexlet_code/fields/text'
+  autoload :Submit, 'hexlet_code/fields/submit'
 end

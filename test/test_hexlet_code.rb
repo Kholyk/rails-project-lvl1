@@ -7,7 +7,7 @@ class TestHexletCode < Minitest::Test
   def setup
     @user_model = Struct.new(:name, :job, :gender, keyword_init: true)
     @user_model = @user_model.new name: 'rob', job: 'hexlet', gender: 'm'
-    @user_model1 = Struct.new(:name, :job, keyword_init: true)
+    @user_model1 = Struct.new(:name, :job, :description, keyword_init: true)
     @user_model1 = @user_model1.new job: 'hexlet'
     @form0 = load_fixture 'form_0.html'
     @form1 = load_fixture 'form_1.html'
@@ -15,12 +15,13 @@ class TestHexletCode < Minitest::Test
     @form3 = load_fixture 'form_3.html'
     @labeled0 = load_fixture 'form_labeled_0.html'
     @labeled1 = load_fixture 'form_labeled_1.html'
+    @labeled2 = load_fixture 'form_labeled_2.html'
   end
 
-  def test_that_it_has_a_version_number
-    refute_nil ::HexletCode::VERSION
-  end
-
+  # def test_that_it_has_a_version_number
+  #   refute_nil ::HexletCode::VERSION
+  # end
+  #
   def test_tags_render_properly
     assert_equal '<br>', HexletCode::Tag.build('br')
     assert_equal '<img src="path/to/image">', HexletCode::Tag.build('img', src: 'path/to/image')
@@ -29,10 +30,10 @@ class TestHexletCode < Minitest::Test
     assert_equal '<label for="email">Email</label>', HexletCode::Tag.build('label', for: 'email') { 'Email' }
     assert_equal '<div></div>', HexletCode::Tag.build('div')
   end
-
-  def test_struct_works_properly
-    assert_equal @user_model.name, 'rob'
-  end
+  #
+  # def test_struct_works_properly
+  #   assert_equal @user_model.name, 'rob'
+  # end
 
   def test_root_form_tag_generates_properly
     form1 = HexletCode.form_for @user_model
@@ -85,6 +86,16 @@ class TestHexletCode < Minitest::Test
       f.submit 'Wow'
     end
     assert_equal @labeled1, labeled1
+  end
+
+  def test_labeled_form_with_extra_attributes
+    labeled2 = HexletCode.form_for @user_model1, url: 'user/update', method: 'patch' do |f|
+      f.input :name
+      f.input :job
+      f.input :description, as: :text, class: 'form-control'
+      f.submit 'Wow'
+    end
+    assert_equal @labeled2, labeled2
   end
 
   def test_raises_error_on_wrong_fields

@@ -13,26 +13,21 @@ module HexletCode
       @form_options = options
       @fields = []
     end
-  end
 
-  def self.form_for(model, form_options = {})
-    @form = Form.new model, form_options
-    @form.fields = yield(self) if block_given?
-    Render.new(@form).to_html
-  end
+    def input(field_name, options = {})
+      begin
+        field_value = model.public_send field_name
+      rescue NoMethodError
+        raise NoMethodError, "undefined method `#{field_name}` for #{model}"
+      end
 
-  def self.input(field_name, options = {})
-    begin
-      value = @form.model.public_send field_name
-    rescue NoMethodError
-      raise NoMethodError, "undefined method `#{field_name}` for #{@model}"
+      field_type = options.include?(:as) ? options[:as] : 'input'
+      labeled = form_options[:with_labels]
+      fields << { name: field_name, type: field_type, value: field_value, with_labels: labeled, **options }
     end
 
-    field_type_class = options.include?(:as) ? options[:as] : 'Input'
-    @form.fields << "HexletCode::#{field_type_class.capitalize}".constantize.new(field_name, value, options).meta
-  end
-
-  def self.submit(value = 'Save', options = {})
-    @form.fields << Submit.new(value, options).meta
+    def submit(caption = 'Save', options = {})
+      fields << { type: 'submit', value: caption, ** options }
+    end
   end
 end

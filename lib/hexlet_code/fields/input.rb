@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 module HexletCode
-  class Input < Field
-    def initialize(field_name, field_value, field_attributes = {})
-      super
-      meta[:attributes] = { name: field_name, type: 'text', value: field_value }.merge(field_attributes)
+  class Input
+    extend Label
+    def self.render_from(hash)
+      hash[:type] = 'text'
+      tag = Tag.build('input', hash.except(:with_labels))
+      string_from tag, hash
     end
   end
 end

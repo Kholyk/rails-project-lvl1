@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 module HexletCode
-  class Text < Field
-    def initialize(field_name, field_value, field_attributes = {})
-      super
-      meta[:tag_name] = 'textarea'
-      meta[:attributes] = { name: field_name, cols: 20, rows: 40 }.merge(field_attributes.except(:as))
+  class Text
+    extend Label
+
+    def self.render_from(hash)
+      textarea_value = hash[:value]
+      textarea_hash = { cols: 20, rows: 40 }.merge(hash.except(:as, :type, :value, :with_labels))
+      tag = Tag.build('textarea', textarea_hash) { textarea_value }
+      string_from tag, hash
     end
   end
 end

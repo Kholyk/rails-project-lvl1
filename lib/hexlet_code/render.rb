@@ -2,25 +2,15 @@
 
 module HexletCode
   class Render
-    def initialize(form_instance)
-      form_options = form_instance.form_options
-      form_method = form_options.fetch(:method, 'post')
-      on_submit = form_options.fetch(:url, '#')
+    def self.html(form_instance)
+      form_attributes = form_instance.form_options.except(:with_labels)
 
-      @form_attributes = { action: on_submit, method: form_method }.merge(form_options.except(:url))
-      @fields = form_instance.fields
-    end
-
-    def to_html
-      children = @fields.reduce [] do |acc, field|
-        tag_name, name, value, attributes = field.values_at(:tag_name, :name, :value, :attributes)
-
-        (acc << Tag.build('label', { for: name }) { name.to_s.capitalize }) unless attributes.value?('submit')
-
-        acc << Tag.build(tag_name, attributes) { value }
+      children = form_instance.fields.reduce [] do |acc, hash|
+        field_class = "HexletCode::#{hash[:type].capitalize}".constantize
+        acc << field_class.render_from(hash)
       end.join
 
-      Tag.build('form', { ** @form_attributes }) { children }
+      Tag.build('form', { ** form_attributes }) { children }
     end
   end
 end

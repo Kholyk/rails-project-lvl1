@@ -16,12 +16,13 @@ class TestHexletCode < Minitest::Test
     @labeled0 = load_fixture 'form_labeled_0.html'
     @labeled1 = load_fixture 'form_labeled_1.html'
     @labeled2 = load_fixture 'form_labeled_2.html'
+    @labeled3 = load_fixture 'form_labeled_3.html'
   end
 
-  # def test_that_it_has_a_version_number
-  #   refute_nil ::HexletCode::VERSION
-  # end
-  #
+  def test_that_it_has_a_version_number
+    refute_nil ::HexletCode::VERSION
+  end
+
   def test_tags_render_properly
     assert_equal '<br>', HexletCode::Tag.build('br')
     assert_equal '<img src="path/to/image">', HexletCode::Tag.build('img', src: 'path/to/image')
@@ -45,32 +46,27 @@ class TestHexletCode < Minitest::Test
     form3 = HexletCode.form_for @user_model, url: '/users', class: 'form-control'
     assert_equal '<form action="/users" method="post" class="form-control"></form>', form3
   end
-  #
-  # def test_forms_render_without_labels
-  #   form_0 = HexletCode.form_for @user_model do |f|
-  #     # Проверяет есть ли значение внутри name
-  #     f.input :name
-  #     # Проверяет есть ли значение внутри job
-  #     f.input :job, as: :text
-  #   end
-  #   assert_equal @form0, form_0
-  #
-  #   form_1 = HexletCode.form_for @user_model, url: '#' do |f|
-  #     f.input :name, class: 'user-input'
-  #     f.input :job
-  #   end
-  #   assert_equal @form1, form_1
-  #
-  #   form_2 = HexletCode.form_for @user_model do |f|
-  #     f.input :job, as: :text
-  #   end
-  #   assert_equal @form2, form_2
-  #
-  #   form_3 = HexletCode.form_for @user_model, url: '#' do |f|
-  #       f.input :job, as: :text, rows: 50, cols: 50
-  #   end
-  #   assert_equal @form3, form_3
-  # end
+
+  def test_forms_render_without_labels
+    form0 = HexletCode.form_for @user_model, with_labels: false do |f|
+      # Проверяет есть ли значение внутри name
+      f.input :name
+      # Проверяет есть ли значение внутри job
+      f.input :job, as: :text
+    end
+    assert_equal @form0, form0
+
+    form1 = HexletCode.form_for @user_model, url: '#', with_labels: false do |f|
+      f.input :name, class: 'user-input'
+      f.input :job
+    end
+    assert_equal @form1, form1
+
+    form2 = HexletCode.form_for @user_model, with_labels: false do |f|
+      f.input :job, as: :text
+    end
+    assert_equal @form2, form2
+  end
 
   def test_labeled_forms
     labeled0 = HexletCode.form_for @user_model1 do |f|
@@ -96,6 +92,14 @@ class TestHexletCode < Minitest::Test
       f.submit 'Wow'
     end
     assert_equal @labeled2, labeled2
+
+    labeled3 = HexletCode.form_for @user_model1, url: 'user/update', method: 'patch' do |f|
+      f.input :name, class: 'user-input'
+      f.input :job
+      f.input :description, as: :text, class: 'form-control rounded', rows: 10, cols: 50
+      f.submit 'Wow'
+    end
+    assert_equal @labeled3, labeled3
   end
 
   def test_raises_error_on_wrong_fields

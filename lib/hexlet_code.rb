@@ -19,7 +19,7 @@ module HexletCode
     }
 
     form = Form.new model, form_attributes.merge(form_options.except(:url))
-    form.fields = yield form if block_given?
+    yield form if block_given?
 
     Render.html form
   end

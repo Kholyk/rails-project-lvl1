@@ -21,7 +21,7 @@ module HexletCode
         raise NoMethodError, "undefined method `#{field_name}` for #{model}"
       end
 
-      field_type = options.include?(:as) ? options[:as] : 'input'
+      field_type = options.fetch(:as, 'input')
       labeled = form_options[:with_labels]
       fields << { name: field_name, type: field_type, value: field_value, with_labels: labeled, **options }
     end

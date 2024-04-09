@@ -2,15 +2,13 @@
 
 module HexletCode
   module Label
-    def prepend_label_for(hash)
-      field_name = hash[:name]
-      label = Tag.build('label', for: field_name) { field_name.capitalize }
-      block_given? ? "#{label}#{yield}" : label
-    end
+    def add_label_for(tag, field)
+      return tag unless field[:with_labels]
 
-    def string_from(tag, hash)
-      with_labels = hash[:with_labels]
-      with_labels ? prepend_label_for(hash) { tag } : tag
+      field_name = field[:name]
+      label = Tag.build('label', { for: field_name }) { field_name.capitalize }
+
+      "#{label}#{tag}"
     end
   end
 end

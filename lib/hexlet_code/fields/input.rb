@@ -3,10 +3,10 @@
 module HexletCode
   class Input
     extend Label
-    def self.render_from(hash)
-      hash[:type] = 'text'
-      tag = Tag.build('input', hash.except(:with_labels))
-      string_from tag, hash
+    def self.render_from(field)
+      field[:type] = 'text'
+      tag = Tag.build('input', field.except(:with_labels))
+      add_label_for tag, field
     end
   end
 end

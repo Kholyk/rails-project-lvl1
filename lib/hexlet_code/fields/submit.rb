@@ -2,9 +2,8 @@
 
 module HexletCode
   class Submit
-    def self.render_from(hash)
-      hash[:value] ||= 'Save'
-      Tag.build('input', hash)
+    def self.render_from(field)
+      Tag.build('input', field)
     end
   end
 end
